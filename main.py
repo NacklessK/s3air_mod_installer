@@ -23,13 +23,14 @@ def install_mod(mod_list):
             sys.exit()
 
         str_data = str(r.content)
-        match str_data[2]:
-            case "K":
-                extension = ".zip"
-            case "R":
-                extension = ".rar"
-            case "7":
-                extension = ".7z"
+        if str_data[2] == "K":
+            extension = ".zip"
+
+        elif str_data[2] == "R":
+            extension = ".rar"
+
+        elif str_data[2] == "7":
+            extension = ".7z"
 
         mod_path = os.path.join(script_path, f"mod{extension}")
 
@@ -42,10 +43,10 @@ def install_mod(mod_list):
         os.chdir(script_path)
 
         if not os.path.exists("outdir"):
-            os.mkdir("Outdir")
+            os.mkdir("outdir")
 
         try:
-            Archive(mod_path).extractall("Outdir")
+            Archive(mod_path).extractall("outdir")
         except Exception:
             input(extract_error)
             sys.exit()
@@ -103,7 +104,7 @@ def main():
 
     os.chdir(script_path)
     try:
-        os.mkdir("Outdir")
+        os.mkdir("outdir")
     except FileExistsError:
         pass
 
