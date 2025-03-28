@@ -73,7 +73,7 @@ def install_mod(mod_list):
         shutil.rmtree("outdir")
         os.remove(mod_path)
 
-        print(f"{Fore.YELLOW}{i + 1} mod installed out of {len(mod_list)}")
+        print(f"{Fore.YELLOW}{i + 1} mod installed out of {len(mod_list)}.")
 
 
 def main():
@@ -92,8 +92,16 @@ def main():
         local = os.path.join(os.environ["HOME"], ".local/share")
 
     target_path = os.path.join(local, "Sonic3AIR/mods")
-    script_path = "/".join(os.path.realpath(__file__).split("/")[0:-1])
-    print(script_path)
+
+    script_path = ""
+
+    if platform.system() == "Windows":
+        script_path = "\\".join(os.path.realpath(__file__).split("\\")[0:-1])
+    elif platform.system() == "Linux":
+        script_path = "/".join(os.path.realpath(__file__).split("/")[0:-1])
+    else:
+        print(f"{Fore.RED}Error: Operating system not supported.")
+        sys.exit()
 
     help_file = os.path.join(script_path, "help.txt")
 
