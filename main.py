@@ -22,7 +22,6 @@ def install_mod(mod_list):
             input(download_error)
             sys.exit()
 
-       
         str_data = str(r.content)
         match str_data[2]:
             case "K":
@@ -33,7 +32,7 @@ def install_mod(mod_list):
                 extension = ".7z"
 
         mod_path = os.path.join(script_path, f"mod{extension}")
-        
+
         with open(mod_path, "wb") as f:
             f.write(r.content)
         print("Download complete!")
@@ -77,16 +76,15 @@ def install_mod(mod_list):
 
 
 def main():
-    init(autoreset=True) 
+    init(autoreset=True)
     os.system("cls")
 
-    global target_path, script_path 
+    global target_path, script_path
 
-    target_path = os.path.join(os.environ["APPDATA"], "Sonic3AIR\\mods")  
+    target_path = os.path.join(os.environ["APPDATA"], "Sonic3AIR\\mods")
     script_path = "\\".join(os.path.abspath(__file__).split("\\")[0:-1])
 
     help_file = os.path.join(script_path, "help.txt")
-
 
     if len(sys.argv) == 1:
         with open(help_file, "r") as f:
@@ -100,30 +98,29 @@ def main():
         pass
 
     if sys.argv[1][0] == "-":
-        match sys.argv[1]:
 
-            case "--help":
-                with open(help_file, "r") as f:
-                    print(f.read())
+        if sys.argv[1] == "--help" or sys.argv[1] == "-h":
+            with open(help_file, "r") as f:
+                print(f.read())
 
-            case "--file":
-                try:
-                    mod_pack = sys.argv[2]
-                except IndexError:
-                    print("No argument was given")
-                    sys.exit()
+        if sys.argv[1] == "--file" or "-f":
+            try:
+                mod_pack = sys.argv[2]
+            except IndexError:
+                print("No argument was given")
+                sys.exit()
 
-                with open(mod_pack, "r") as f:
-                    url_list = f.readlines()
-                    for url in enumerate(url_list):
-                        i, val = url
+            with open(mod_pack, "r") as f:
+                url_list = f.readlines()
+                for url in enumerate(url_list):
+                    i, val = url
 
-                        if val[-1] == "\n":
-                            new_url = [x for x in val]
-                            new_url.pop(-1)
-                            url_list[i] = "".join(new_url)
+                    if val[-1] == "\n":
+                        new_url = [x for x in val]
+                        new_url.pop(-1)
+                        url_list[i] = "".join(new_url)
 
-                    install_mod(url_list)
+                install_mod(url_list)
     else:
 
         url_list = sys.argv
