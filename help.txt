@@ -1,0 +1,3 @@
+Usage :
+s3air_mod_installer https://the/url/of/the/mod/ https://the/url/of/an/other/mod/ https://the/url/of/yet/an/other/mod/
+s3air_mod_installer -file mods.txt
