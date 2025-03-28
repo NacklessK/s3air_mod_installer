@@ -78,7 +78,7 @@ def install_mod(mod_list):
 
 def main():
     init(autoreset=True) 
-    os.system("cls")  # Clear the console to make the colorama module work correctly with the cmd
+    os.system("cls")
 
     global target_path, script_path 
 
@@ -102,11 +102,11 @@ def main():
     if sys.argv[1][0] == "-":
         match sys.argv[1]:
 
-            case "-help":
+            case "--help":
                 with open(help_file, "r") as f:
                     print(f.read())
 
-            case "-file":
+            case "--file":
                 try:
                     mod_pack = sys.argv[2]
                 except IndexError:
