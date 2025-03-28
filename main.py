@@ -41,7 +41,7 @@ def install_mod(mod_list):
 
         os.chdir(script_path)
 
-        if not os.path.exists("Outdir"):
+        if not os.path.exists("outdir"):
             os.mkdir("Outdir")
 
         try:
@@ -50,7 +50,7 @@ def install_mod(mod_list):
             input(extract_error)
             sys.exit()
 
-        os.chdir("Outdir")
+        os.chdir("outdir")
 
         if os.path.exists("mod.json"):
             with open("mod.json") as j:
@@ -69,10 +69,10 @@ def install_mod(mod_list):
             Archive(mod_path).extractall(target_path)
 
         os.chdir("..")
-        shutil.rmtree("Outdir")
+        shutil.rmtree("outdir")
         os.remove(mod_path)
 
-        print(f"{Fore.YELLOW}Mod {i + 1} out of {len(mod_list)} installed")
+        print(f"{Fore.YELLOW}{i + 1} mod installed out of {len(mod_list)}")
 
 
 def main():
