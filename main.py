@@ -17,12 +17,12 @@ def install_mod(mod_list):
         print("Downloading..")
 
         try:
-            r = rq.get(url)  # Download the file from the internet
+            r = rq.get(url)
         except Exception:
             input(download_error)
             sys.exit()
 
-        # Check for the type of the file
+       
         str_data = str(r.content)
         match str_data[2]:
             case "K":
@@ -32,9 +32,8 @@ def install_mod(mod_list):
             case "7":
                 extension = ".7z"
 
-        mod_path = os.path.join(script_path, f"mod{extension}")  # Define the path of the mod archive
-
-        # Copy mod to the computer
+        mod_path = os.path.join(script_path, f"mod{extension}")
+        
         with open(mod_path, "wb") as f:
             f.write(r.content)
         print("Download complete!")
@@ -72,23 +71,23 @@ def install_mod(mod_list):
 
         os.chdir("..")
         shutil.rmtree("Outdir")
-        os.remove(mod_path)  # Delete archive
+        os.remove(mod_path)
 
         print(f"{Fore.YELLOW}Mod {i + 1} out of {len(mod_list)} installed")
 
 
 def main():
-    init(autoreset=True)  # Initialize colorama module
+    init(autoreset=True) 
     os.system("cls")  # Clear the console to make the colorama module work correctly with the cmd
 
-    global target_path, script_path  # Make certain variables global
+    global target_path, script_path 
 
-    target_path = os.path.join(os.environ["APPDATA"], "Sonic3AIR\\mods")  # Define the mods folder path
-    script_path = "\\".join(os.path.abspath(__file__).split("\\")[0:-1])  # Define the main script's path
+    target_path = os.path.join(os.environ["APPDATA"], "Sonic3AIR\\mods")  
+    script_path = "\\".join(os.path.abspath(__file__).split("\\")[0:-1])
 
-    help_file = os.path.join(script_path, "help.txt")  # Store the help file into a file
+    help_file = os.path.join(script_path, "help.txt")
 
-    # Check if no argument was given
+
     if len(sys.argv) == 1:
         with open(help_file, "r") as f:
             print(f.read())
@@ -100,11 +99,9 @@ def main():
     except FileExistsError:
         pass
 
-    # Check if an option was given
     if sys.argv[1][0] == "-":
         match sys.argv[1]:
 
-            # If "-help" argument given then print help.txt
             case "-help":
                 with open(help_file, "r") as f:
                     print(f.read())
@@ -116,13 +113,11 @@ def main():
                     print("No argument was given")
                     sys.exit()
 
-                # Import content of the file
                 with open(mod_pack, "r") as f:
                     url_list = f.readlines()
                     for url in enumerate(url_list):
                         i, val = url
 
-                        # Check if last character is "\n", if true remove it
                         if val[-1] == "\n":
                             new_url = [x for x in val]
                             new_url.pop(-1)
