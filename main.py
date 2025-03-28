@@ -1,4 +1,4 @@
-import os, sys, json, shutil
+import os, sys, json, shutil, platform
 import requests as rq
 from colorama import Fore, init
 from pyunpack import Archive
@@ -77,12 +77,22 @@ def install_mod(mod_list):
 
 def main():
     init(autoreset=True)
-    os.system("cls")
+    if platform.system() == "Windows":
+        os.system("cls")
 
     global target_path, script_path
 
-    target_path = os.path.join(os.environ["APPDATA"], "Sonic3AIR\\mods")
-    script_path = "\\".join(os.path.abspath(__file__).split("\\")[0:-1])
+    local = ""
+
+    if platform.system() == "Windows":
+        local = os.environ["APPDATA"]
+
+    elif platform.system() == "Linux":
+        local = os.path.join(os.environ["HOME"], ".local/share")
+
+    target_path = os.path.join(local, "Sonic3AIR/mods")
+    script_path = "/".join(os.path.realpath(__file__).split("/")[0:-1])
+    print(script_path)
 
     help_file = os.path.join(script_path, "help.txt")
 
